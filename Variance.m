@@ -3,6 +3,7 @@ classdef Variance
     %   Beam profile at different points
     
     properties
+        wavelength
         Samplesize
         Meanamplitude         %Distance from aperture
         Lowerlimit
@@ -12,7 +13,8 @@ classdef Variance
     methods
         function obj = BeamProfile(Samplesize,Meanamplitude,Lowerlimit,Upperlimit)
             %This function Construct an instance of this class
-            if nargin==4    
+            if nargin==5 
+               obj.wavelength = wavelength;
                obj.Samplesize = Samplesize;
                obj.Meanamplitude = Meanamplitude;
                obj.Lowerlimit = Lowerlimit;
