@@ -1,4 +1,4 @@
-function [mean_amplitude, lower_limit, upper_limit]= getvariance(tdms_struct, wavelength,  signalcutposition_1, signalcutposition_2)
+function [mean_amplitude, lower_limit, upper_limit]= getvariance(tdms_struct, wavelength,  signalcutposition_1_exp, signalcutposition_2_exp)
 
 %this function calculates the variance properties of the time resolved PA experimental
 %signals. every single PA signal which is obtained at a specific
@@ -29,7 +29,7 @@ function [mean_amplitude, lower_limit, upper_limit]= getvariance(tdms_struct, wa
 channels= tdms_struct.(['M', num2str(wavelength), 'D0']);
 samplesize=numel(fieldnames(channels))-2;
 
-sample=channels.v0_CH0.data(signalcutposition_1:signalcutposition_2);
+sample=channels.v0_CH0.data(signalcutposition_1_exp:signalcutposition_2_exp);
 Size=size(sample);
 
 mean_amplitude=zeros(1,Size(1,2));
@@ -42,7 +42,7 @@ Data= zeros(1,samplesize);
 for i= 1: Size(1,2)
     for j=1:samplesize
     data=channels.(['v', num2str(j-1),'_CH0']).data;
-    data_1=data(signalcutposition_1:signalcutposition_2);
+    data_1=data(signalcutposition_1_exp:signalcutposition_2_exp);
     data_2=data_1(1,i);
     Data(j)=data_2;
     end
