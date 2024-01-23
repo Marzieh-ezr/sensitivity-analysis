@@ -26,17 +26,17 @@ function [mean_amplitude, lower_limit, upper_limit]= getvariance(tdms_struct, wa
 %==========================================================================================================================================================
 
 
-channels= tdms_struct.(['M', num2str(wavelength), 'D0']);
-samplesize=numel(fieldnames(channels))-2;
+channels= tdms_struct.(['M', num2str(wavelength), 'D0']);  %choosing the experimetnal PA signal for an specific wavelength
+samplesize=numel(fieldnames(channels))-2;  % counting the number of fields in the structure above to get the samplesize
 
-sample=channels.v0_CH0.data(signalcutposition_1_exp:signalcutposition_2_exp);
-Size=size(sample);
+sample=channels.v0_CH0.data(signalcutposition_1_exp:signalcutposition_2_exp);  
+Size=size(sample); %size of the first compression part of the experimental PA signals
 
 mean_amplitude=zeros(1,Size(1,2));
 lower_limit=zeros(1,Size(1,2));
 upper_limit=zeros(1,Size(1,2));
 
-Data= zeros(1,samplesize);
+Data= zeros(1,samplesize);  %a vector containing all the PA amplitudes for a single time point. 
 
 
 for i= 1: Size(1,2)
