@@ -31,7 +31,7 @@ samplesize=numel(fieldnames(channels))-2;  % counting the number of fields in th
 
 sample=channels.v0_CH0.data;  
 [sample,S_model]=Removedelay(tdms_struct, wavelength,PA_signals,absorption_coefficient);
-sample=sample( signalcutposition_1: signalcutposition_2);
+sample=sample( signalcutposition_1:
 Size=size(sample); %size of the first compression part of the experimental PA signals
 
 mean_amplitude=zeros(1,Size(1,2));
@@ -44,9 +44,9 @@ Data= zeros(1,samplesize);  %a vector containing all the PA amplitudes for a sin
 for i= 1: Size(1,2)
     for j=1:samplesize
     data=channels.(['v', num2str(j-1),'_CH0']).data;
-    [data_1,S_model]=Removedelay(tdms_struct, wavelength,PA_signals,absorption_coefficient);
-    data_2=data_1( signalcutposition_1: signalcutposition_2);
-    Data(j)=data_2(1,i);
+    data_1=data(signalcutposition_1:signalcutposition_2);
+    data_2=data_1(1,i);
+    Data(j)=data_2;
     end
   mean_amplitude(i)= mean(Data);
   lower_limit(i)= min(Data);

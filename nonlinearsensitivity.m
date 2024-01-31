@@ -1,4 +1,4 @@
-function delta_F =nonlinearsensitivity(PA_signals, absorption_coefficient, signalcutposition_1_sim, signalcutposition_2_sim)
+function delta_F =nonlinearsensitivity(PA_signals, absorption_coefficient, signalcutposition_1, signalcutposition_2)
 
 %this function calculates the sensitivity of the PA forward model to the
 %absorption coefficient and the scaling parameter using different adjusment
@@ -18,14 +18,18 @@ delta_F=zeros(60,60);
 
 
 
-PA_signal_base=PA_signals{absorption_coefficient}(signalcutposition_1_sim:signalcutposition_2_sim);    %PA signal when deltau and deltaa are both equal to zero
+PA_signal_base=PA_signals{absorption_coefficient};    %PA signal when deltau and deltaa are both equal to zero
+[S_exp,PA_signal_base]=Removedelay(tdms_struct, wavelength,PA_signals,absorption_coefficient);
+PA_signal_base=PA_signal_base(signalcutposition_1:signalcutposition_2);
 S=size(PA_signal_base);
 
 
 
 for i=1:61
 deltau=i-31;    %variation in tyhe absorption coefficient
-PA_signal_deltau=PA_signals{absorption_coefficient+deltau}(signalcutposition_1_sim:signalcutposition_2_sim);
+PA_signal_deltau=PA_signals{absorption_coefficient+deltau};
+[S_exp,PA_PA_signal_deltau]=Removedelay(tdms_struct, wavelength,PA_signals,absorption_coefficient);
+PA_signal_deltau=PA_signal_deltau(signalcutposition_1:signalcutposition_2);
     for j= 1:61
         deltaa=((j-31)/100);   %variation in the scaling factor
         Delta=0;

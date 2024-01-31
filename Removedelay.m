@@ -4,7 +4,10 @@ function [S_exp,S_model]=Removedelay(tdms_struct, wavelength,PA_signals,absorpti
 %and the best fit out the PA forward model. it assumes that they have got
 %the same sampling rate but different length and probably shifted. 
 
-S_exp=tdms_struct.(['M',num2str(wavelength),'D0']).v0_CH0.data;
+
+channels=tdms_struct.(['M',num2str(wavelength),'D0']);
+S_exp=Mean_Tdms(channels);
+%S_exp=tdms_struct.(['M',num2str(wavelength),'D0']).v0_CH0.data;
 S_model=PA_signals{absorption_coefficient};
 size_model=size(S_model);
 size_exp=size(S_exp);
